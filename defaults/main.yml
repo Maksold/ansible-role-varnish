@@ -25,6 +25,10 @@ varnishd_extra_options: ""
 varnish_enabled_services:
   - varnish
 
+# varnishncsa configuration for logging as nginx access.log
+varnish_ncsa_enabled: false
+varnish_ncsa_format: '%{Host}i %h %l %u %t "%r" %s %b "%{Referer}i" "%{User-agent}i"'
+
 # Make sure Packagecloud repo is used on RHEL/CentOS.
 varnish_packagecloud_repo_yum_repository_priority: "1"
 
