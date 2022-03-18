@@ -8,8 +8,24 @@
 - name: Copy varnishncsa log format file
   ansible.builtin.template:
     src: varnishncsa_log_format.j2
-    dest: /var/log/varnish/varnishncsa_log_format
-  notify: restart varnishncsa
+    dest: "{{ varnish_ncsa_log_formatfile }}"
+    owner: varnishlog
+    group: varnish
+    mode: '0644'
+  notify:
+    - reload systemd
+    - restart varnishncsa
+
+- name: Ensure varnishncsa log file is present
+  ansible.builtin.file:
+    path: "{{ varnish_ncsa_logfile }}"
+    owner: varnishlog
+    group: varnish
+    mode: '0644'
+    state: file
+  notify:
+    - reload systemd
+    - restart varnishncsa
 
 - name: Copy varnishncsa service configuration file
   ansible.builtin.template:
