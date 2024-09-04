@@ -1,6 +1,7 @@
 ---
 varnish_package_name: "varnish"
-varnish_version: "6.4"
+varnish_modules_package_name: ""
+varnish_version: "6.6"
 
 varnish_use_default_vcl: true
 varnish_default_vcl_template_path: default.vcl.j2
@@ -24,6 +25,9 @@ varnishd_extra_options: ""
 
 varnish_enabled_services:
   - varnish
+
+# Use Packagecloud repo instead of distribution default
+varnish_apt_use_packagecloud: true
 
 # varnishncsa configuration for logging as nginx access.log
 varnish_ncsa_enabled: false

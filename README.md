@@ -1,6 +1,6 @@
 # Ansible Role: Varnish
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-varnish.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-varnish)
+[![CI](https://github.com/geerlingguy/ansible-role-varnish/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-varnish/actions?query=workflow%3ACI)
 
 Installs the [Varnish HTTP Cache](https://varnish-cache.org/) on RedHat/CentOS or Debian/Ubuntu Linux.
 
@@ -16,9 +16,9 @@ Available variables are listed below, along with default values (see `defaults/m
 
 Varnish package name you want to install. See `apt-cache policy varnish` or `yum list varnish` for a listing of available candidates.
 
-    varnish_version: "6.4"
+    varnish_version: "6.6"
 
-Varnish version that should be installed. See the [Varnish Cache packagecloud.io repositories](https://packagecloud.io/varnishcache) for a listing of available versions. Some examples include: `6.4`, `6.3`, `6.1`, `4.1`, `3.0`, and `2.1`.
+Varnish version that should be installed. See the [Varnish Cache packagecloud.io repositories](https://packagecloud.io/varnishcache) for a listing of available versions. Some examples include: `6.6`, `6.5`, `6.4`, `4.1`, `3.0`, and `2.1`.
 
     varnish_config_path: /etc/varnish
 
