@@ -46,4 +46,4 @@
   file:
     path: /etc/systemd/system/varnish.service
     state: absent
-  when: varnish_systemd_config_path != '/etc/systemd/system'
+  when: varnish_systemd_override_path != '/etc/systemd/system'
