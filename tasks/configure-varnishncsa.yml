@@ -23,6 +23,8 @@
     group: varnish
     mode: '0644'
     state: touch
+    access_time: preserve
+    modification_time: preserve
   notify:
     - reload systemd
     - restart varnishncsa
