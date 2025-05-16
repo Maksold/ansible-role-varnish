@@ -9,7 +9,7 @@
   ansible.builtin.template:
     src: varnishncsa_log_format.j2
     dest: "{{ varnish_ncsa_log_formatfile }}"
-    owner: varnish
+    owner: varnishlog
     group: varnish
     mode: '0644'
   notify:
@@ -19,7 +19,7 @@
 - name: Ensure varnishncsa log file is present
   ansible.builtin.file:
     path: "{{ varnish_ncsa_logfile }}"
-    owner: varnish
+    owner: varnishlog
     group: varnish
     mode: '0644'
     state: touch
