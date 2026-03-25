@@ -38,8 +38,11 @@ varnish_ncsa_logfile: /var/log/varnish/varnishncsa.log
 # Make sure Packagecloud repo is used on RHEL/CentOS.
 varnish_packagecloud_repo_yum_repository_priority: "1"
 
+# EL10+: packagecloud has no EL10 packages, use EL9 repo (verified compatible)
+varnish_yum_repo_el_version: "{{ ansible_distribution_major_version | int if ansible_distribution_major_version | int < 10 else 9 }}"
+
 # Only used on RedHat / CentOS.
-varnish_yum_repo_baseurl: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ ansible_distribution_major_version|int }}/$basearch
+varnish_yum_repo_baseurl: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/el/{{ varnish_yum_repo_el_version }}/$basearch
 
 # Only used on Debian / Ubuntu.
 varnish_apt_repo: deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main

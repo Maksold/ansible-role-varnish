@@ -1,17 +1,18 @@
 ---
 - name: Ensure Varnish dependency is installed.
-  yum:
+  ansible.builtin.dnf:
     name: yum-utils
     state: present
+  when: ansible_distribution_major_version | int < 10
 
 - name: Ensure extra Varnish dependency on older RHEL versions is installed.
-  yum:
+  ansible.builtin.dnf:
     name: pygpgme
     state: present
   when: ansible_distribution_major_version | int < 8
 
 - name: Add Varnish packagecloud.io yum repo.
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: varnishcache_{{ varnish_packagecloud_repo }}
     description: Varnish Cache packagecloud.io repository.
     baseurl: "{{ varnish_yum_repo_baseurl }}"
@@ -25,25 +26,25 @@
     priority: "{{ varnish_packagecloud_repo_yum_repository_priority }}"
   register: varnish_packagecloud_repo_addition
 
-- name: Refresh yum metadata cache if repo changed.
-  command: >
-    yum -q makecache -y --disablerepo='*' --enablerepo='varnishcache_{{ varnish_packagecloud_repo }}'
+- name: Refresh dnf metadata cache if repo changed.
+  ansible.builtin.command: >
+    dnf -q makecache -y --disablerepo='*' --enablerepo='varnishcache_{{ varnish_packagecloud_repo }}'
   when: varnish_packagecloud_repo_addition.changed
-  tags: ['skip_ansible_lint']
+  changed_when: false
 
 - name: Ensure Varnish is installed.
-  yum:
+  ansible.builtin.dnf:
     name: "{{ varnish_package_name }}"
     state: present
 
 - name: Ensure Varnish VMODs are installed.
-  yum:
+  ansible.builtin.dnf:
     name: "{{ varnish_modules_package_name }}"
     state: present
   when: varnish_modules_package_name
 
 - name: Ensure old role-managed Varnish systemd unit file is removed.
-  file:
+  ansible.builtin.file:
     path: /etc/systemd/system/varnish.service
     state: absent
   when: varnish_systemd_override_path != '/etc/systemd/system'
